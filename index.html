@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartNews W2A LP Prototypes — 2026-08-07</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  body { padding: 20px; background: var(--sn-surface); }
+  .index-wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 28px; margin-bottom: 8px; }
+  .intro { color: var(--sn-ink); opacity: 0.72; margin-bottom: 24px; font-size: 14px; }
+  .lp-list { display: flex; flex-direction: column; gap: 14px; }
+  .lp-item {
+    padding: 20px; background: var(--sn-white); border-radius: var(--radius);
+    border: 1px solid var(--sn-gray-light); text-decoration: none; color: inherit;
+    display: block; transition: all 0.15s ease;
+  }
+  .lp-item:hover { border-color: var(--sn-ink); transform: translateX(2px); }
+  .lp-item .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .lp-item .head h3 { font-size: 18px; }
+  .lp-item .arch {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--sn-ink); opacity: 0.55; font-weight: 700;
+  }
+  .lp-item .meta { font-size: 13px; color: var(--sn-ink); opacity: 0.7; }
+  .lp-item .stats {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+    font-size: 12px; color: var(--sn-ink);
+  }
+  .lp-item .stat {
+    padding: 3px 8px; background: var(--sn-surface);
+    border-radius: 6px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="index-wrap">
+  <h1>SmartNews W2A LP プロトタイプ</h1>
+  <p class="intro">
+    2026-08-07 更新。<br>
+    <b>アセット</b>: 公式ロゴ (Brand Kit) / App Store 公式スクショ (itunes.apple.com/lookup) / DM Sans + DM Serif Text (Google Fonts, brand 指定).<br>
+    <b>Color</b>: theme1.xml から抽出した公式 palette.<br>
+    <b>記事セクション</b>: <a href="https://docs.google.com/spreadsheets/d/1cBwvf7KP2Y6rj0ybszNZ3jQX0uknWMQDzqWqg3QpWKQ/edit">Google Sheet</a> の各タブから gviz CSV 経由で fetch。Sheet は Meta Catalog "last_day_all_articles" から毎日 09:00 JST に自動 populate (workflow_dispatch で手動更新も可).
+  </p>
+
+  <div class="lp-list">
+    <a class="lp-item" href="gardening.html">
+      <div class="head"><h3>🌱 Gardening</h3><span class="arch">Topic Hub</span></div>
+      <div class="meta">Dig into top garden tips.</div>
+      <div class="stats"><span class="stat">D1 Rate 47%</span><span class="stat">検索需要: 大</span></div>
+    </a>
+
+    <a class="lp-item" href="fantasy-football.html">
+      <div class="head"><h3>🏈 Fantasy Football</h3><span class="arch">Topic Hub (sports)</span></div>
+      <div class="meta">Win your league with SmartNews.</div>
+      <div class="stats"><span class="stat">D1 Rate 48%</span><span class="stat">検索需要: 極大 (シーズン開幕)</span></div>
+    </a>
+
+    <a class="lp-item" href="pro-basketball.html">
+      <div class="head"><h3>🏀 Pro Basketball</h3><span class="arch">Topic Hub (sports)</span></div>
+      <div class="meta">The news app for basketball fans.</div>
+      <div class="stats"><span class="stat">D1 Rate 45%</span><span class="stat">検索需要: 極大 (NBA 開幕前)</span></div>
+    </a>
+
+    <a class="lp-item" href="celebrity-gossip.html">
+      <div class="head"><h3>✨ Celebrity Gossip</h3><span class="arch">Topic Hub (entertainment)</span></div>
+      <div class="meta">Never miss a beat.</div>
+      <div class="stats"><span class="stat">D1 Rate 79%</span><span class="stat">検索需要: 極大</span></div>
+    </a>
+
+    <a class="lp-item" href="movies.html">
+      <div class="head"><h3>🎬 Movies</h3><span class="arch">Topic Hub (entertainment)</span></div>
+      <div class="meta">What film is everyone seeing?</div>
+      <div class="stats"><span class="stat">D1 Rate 39%</span><span class="stat">検索需要: 大</span></div>
+    </a>
+
+    <a class="lp-item" href="music.html">
+      <div class="head"><h3>🎧 Music</h3><span class="arch">Topic Hub (entertainment)</span></div>
+      <div class="meta">New albums. New artists. Now.</div>
+      <div class="stats"><span class="stat">D1 Rate 84%</span><span class="stat">検索需要: 大</span></div>
+    </a>
+
+    <a class="lp-item" href="book-club.html">
+      <div class="head"><h3>📚 Book Club</h3><span class="arch">Topic Hub (lifestyle)</span></div>
+      <div class="meta">Reads worth talking about.</div>
+      <div class="stats"><span class="stat">D1 Rate 66%</span><span class="stat">検索需要: 中-大</span></div>
+    </a>
+
+    <a class="lp-item" href="coffee.html">
+      <div class="head"><h3>☕ Coffee</h3><span class="arch">Topic Hub (lifestyle)</span></div>
+      <div class="meta">Your daily coffee, informed.</div>
+      <div class="stats"><span class="stat">D1 Rate 37%</span><span class="stat">検索需要: 中-大</span></div>
+    </a>
+  </div>
+
+  <hr style="margin: 32px 0; border: none; border-top: 1px solid var(--sn-gray-light);">
+
+  <h2 style="font-size: 20px; margin-bottom: 8px;">構成メモ</h2>
+  <ul style="padding-left: 20px; color: var(--sn-ink); opacity: 0.72; font-size: 14px; line-height: 1.7;">
+    <li><b>Topic Hub 型 (8本)</b>: 同一テンプレ、カテゴリ差異は色 / 見出し / サンプル記事 / FAQ / publishers のみ.</li>
+    <li><b>記事データ</b>: SmartNews が Meta 広告用に維持する catalog "last_day_all_articles" (id=24485230187801062, ~19K products 直近24h) から日次で最新記事を Sheet に populate. GitHub Actions が 09:00 JST 自動実行, workflow_dispatch で手動更新可.</li>
+    <li><b>コピーソース</b>: Google Ads UAC の <code>performance_label=BEST</code> asset をそのまま流用 (勝ってる言葉).</li>
+  </ul>
+</div>
+</body>
+</html>
