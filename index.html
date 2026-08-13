@@ -35,16 +35,25 @@
     padding: 3px 8px; background: var(--sn-surface);
     border-radius: 6px; font-weight: 600;
   }
+  .jp { color: var(--sn-ink); opacity: 0.55; font-size: 12px; display: block; margin-top: 2px; }
 </style>
 </head>
 <body>
 <div class="index-wrap">
-  <h1>SmartNews W2A LP プロトタイプ</h1>
-  <p class="intro">
-    2026-08-07 更新。<br>
-    <b>アセット</b>: 公式ロゴ (Brand Kit) / App Store 公式スクショ (itunes.apple.com/lookup) / DM Sans + DM Serif Text (Google Fonts, brand 指定).<br>
-    <b>Color</b>: theme1.xml から抽出した公式 palette.<br>
-    <b>記事セクション</b>: <a href="https://docs.google.com/spreadsheets/d/1cBwvf7KP2Y6rj0ybszNZ3jQX0uknWMQDzqWqg3QpWKQ/edit">Google Sheet</a> の各タブから gviz CSV 経由で fetch。Sheet は Meta Catalog "last_day_all_articles" から毎日 09:00 JST に自動 populate (workflow_dispatch で手動更新も可).
+  <h1>SmartNews W2A LP Prototypes</h1>
+  <span class="jp">SmartNews W2A LP プロトタイプ</span>
+  <p class="intro" style="margin-top: 16px;">
+    Last updated: 2026-08-07.<br>
+    <span class="jp">2026-08-07 更新。</span>
+    <br>
+    <b>Assets</b>: Official logo (Brand Kit), App Store screenshots (via <code>itunes.apple.com/lookup</code>), DM Sans + DM Serif Text (Google Fonts, brand-specified).<br>
+    <span class="jp"><b>アセット</b>: 公式ロゴ (Brand Kit) / App Store 公式スクショ (itunes.apple.com/lookup) / DM Sans + DM Serif Text (Google Fonts, brand 指定).</span>
+    <br><br>
+    <b>Color palette</b>: Extracted from official <code>theme1.xml</code>.<br>
+    <span class="jp"><b>Color</b>: theme1.xml から抽出した公式 palette.</span>
+    <br><br>
+    <b>Article section</b>: Fetched from a <a href="https://docs.google.com/spreadsheets/d/1cBwvf7KP2Y6rj0ybszNZ3jQX0uknWMQDzqWqg3QpWKQ/edit">Google Sheet</a> (per-tab, via gviz CSV). The Sheet is auto-populated daily at 09:00 JST from Meta Catalog <code>last_day_all_articles</code> (manual trigger also available via <code>workflow_dispatch</code>).<br>
+    <span class="jp"><b>記事セクション</b>: Google Sheet の各タブから gviz CSV 経由で fetch。Sheet は Meta Catalog "last_day_all_articles" から毎日 09:00 JST に自動 populate (workflow_dispatch で手動更新も可).</span>
   </p>
 
   <div class="lp-list">
@@ -99,11 +108,20 @@
 
   <hr style="margin: 32px 0; border: none; border-top: 1px solid var(--sn-gray-light);">
 
-  <h2 style="font-size: 20px; margin-bottom: 8px;">構成メモ</h2>
-  <ul style="padding-left: 20px; color: var(--sn-ink); opacity: 0.72; font-size: 14px; line-height: 1.7;">
-    <li><b>Topic Hub 型 (8本)</b>: 同一テンプレ、カテゴリ差異は色 / 見出し / サンプル記事 / FAQ / publishers のみ.</li>
-    <li><b>記事データ</b>: SmartNews が Meta 広告用に維持する catalog "last_day_all_articles" (id=24485230187801062, ~19K products 直近24h) から日次で最新記事を Sheet に populate. GitHub Actions が 09:00 JST 自動実行, workflow_dispatch で手動更新可.</li>
-    <li><b>コピーソース</b>: Google Ads UAC の <code>performance_label=BEST</code> asset をそのまま流用 (勝ってる言葉).</li>
+  <h2 style="font-size: 20px; margin-bottom: 8px;">Design Notes <span class="jp" style="display:inline; font-size:14px; margin-left:8px;">構成メモ</span></h2>
+  <ul style="padding-left: 20px; color: var(--sn-ink); opacity: 0.85; font-size: 14px; line-height: 1.7;">
+    <li>
+      <b>Topic Hub template (8 LPs)</b>: Shared template. Only color / headline / sample articles / FAQ / publisher list differ per category.
+      <span class="jp"><b>Topic Hub 型 (8本)</b>: 同一テンプレ、カテゴリ差異は色 / 見出し / サンプル記事 / FAQ / publishers のみ.</span>
+    </li>
+    <li>
+      <b>Article data</b>: Populated daily into the Sheet from the Meta catalog SmartNews maintains for ad delivery, <code>last_day_all_articles</code> (id=24485230187801062, ~19K products, last 24h). GitHub Actions runs at 09:00 JST; manual trigger available via <code>workflow_dispatch</code>.
+      <span class="jp"><b>記事データ</b>: SmartNews が Meta 広告用に維持する catalog "last_day_all_articles" (id=24485230187801062, ~19K products 直近24h) から日次で最新記事を Sheet に populate. GitHub Actions が 09:00 JST 自動実行, workflow_dispatch で手動更新可.</span>
+    </li>
+    <li>
+      <b>Copy source</b>: Reused directly from the <code>performance_label=BEST</code> assets on the existing Google Ads UAC campaigns (proven winning phrases).
+      <span class="jp"><b>コピーソース</b>: Google Ads UAC の <code>performance_label=BEST</code> asset をそのまま流用 (勝ってる言葉).</span>
+    </li>
   </ul>
 </div>
 </body>
