@@ -90,12 +90,15 @@ function _rowsToObjects(rows) {
 }
 
 function _renderArticles(articles, listEl) {
+  // 記事タップも install 導線 (Adjust URL) にする。元の記事 URL には遷移させない
+  // = W2A LP の目的は install であって記事閲覧ではない (記事は install 動機付けの material)
+  const installHref = _installUrl();
   const html = articles.map(a => {
     const thumb = a.image_url
       ? `<div class="thumb has-image" style="background-image:url('${_escAttr(a.image_url)}')"></div>`
       : `<div class="thumb">${a.emoji || '📰'}</div>`;
     return `
-    <a class="article" href="${_escAttr(a.url) || '#install'}">
+    <a class="article" href="${_escAttr(installHref)}" rel="noopener">
       ${thumb}
       <div class="body">
         <div class="src">${_esc(a.source)}</div>
