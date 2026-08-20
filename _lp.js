@@ -1,10 +1,57 @@
-// SmartNews W2A LP — Sheet 駆動の記事セクション更新
+// SmartNews W2A LP — Sheet 駆動の記事セクション更新 + Adjust install CTA
 // 使い方:
 //   1. index.html を含む prototypes/ 内の HTML から <script src="_lp.js"></script> を読み込む
 //   2. LP 側で: <script>fetchAndRender('gardening')</script> を呼ぶ
 //   3. .article-list 要素の中身が Sheet から取得した記事で置き換わる (失敗時は既存 mock が残る)
+//   4. install CTA (a.store-btn.primary, a.nav-cta) は platform 判定して Adjust URL に置換
 
 const SHEET_ID = '1cBwvf7KP2Y6rj0ybszNZ3jQX0uknWMQDzqWqg3QpWKQ';
+
+const ADJUST_URLS = {
+  ios:     'https://app.adjust.com/23xg3zdu',
+  android: 'https://app.adjust.com/23uy7w87',
+};
+// Desktop / その他: App Store 選択ページ (SmartNews 公式 fallback)
+const FALLBACK_INSTALL_URL = 'https://smartnews.com/en/download/';
+
+function _detectPlatform() {
+  const ua = navigator.userAgent || '';
+  if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+  if (/Android/i.test(ua))          return 'android';
+  return 'other';
+}
+
+function _installUrl() {
+  const p = _detectPlatform();
+  const base = ADJUST_URLS[p];
+  if (!base) return FALLBACK_INSTALL_URL;
+  // Google Ads → Adjust → LP 経由で来た場合、LP URL に wbraid/gclid 等が付与されているので Adjust に転送 (attribution 保持)
+  const src = new URLSearchParams(location.search);
+  const forward = ['wbraid', 'gclid', 'campaign', 'adgroup', 'creative', 'external_click_id'];
+  const kept = new URLSearchParams();
+  forward.forEach(k => { const v = src.get(k); if (v) kept.set(k, v); });
+  const suffix = kept.toString();
+  return suffix ? `${base}?${suffix}` : base;
+}
+
+function _swapInstallCtas() {
+  const url = _installUrl();
+  // .store-btn.primary (hero / bottom CTA) + .nav-cta (top bar)
+  const targets = document.querySelectorAll('a.store-btn.primary, a.nav-cta');
+  targets.forEach(a => {
+    a.href = url;
+    a.setAttribute('rel', 'noopener');
+  });
+  console.info(`[W2A] install CTAs → ${url} (platform=${_detectPlatform()}, count=${targets.length})`);
+}
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _swapInstallCtas);
+  } else {
+    _swapInstallCtas();
+  }
+}
 
 function _parseCsv(text) {
   // Google Sheets gviz の CSV 出力は RFC 4180 準拠 (ダブルクォート囲みでカンマ・改行対応)
